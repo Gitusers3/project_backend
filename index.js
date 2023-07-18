@@ -4,6 +4,8 @@ const mongoose=require('mongoose');
 const bycrypt=require('bcryptjs')
 const app=express();
 app.use(express.json());
+const cors = require('cors');
+app.use(cors());
 app.use('/api/admin',require('./routes/admin_routes'));
 app.use('/api/college',require('./routes/college_routes'));
 app.use('/api/course',require('./routes/course_routes'));

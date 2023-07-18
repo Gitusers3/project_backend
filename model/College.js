@@ -20,7 +20,7 @@ const College=new Schema({
     },
     c_status :{
         type: String,
-        required: true
+        required: false
     }
 
 })
