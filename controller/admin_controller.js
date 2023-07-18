@@ -24,15 +24,16 @@ const Register = async (req, res) => {
     }
 }
 const Login=async(req,res)=>{
-    const {aemailorphone,apassword}=req.body;
-    // console.log(aemailorphone)
-    // console.log(apassword)
-    const admin=await Admin.findOne({$or:[{a_email:aemailorphone},{a_phone:aemailorphone}]})
+    console.log(req.body);
+    const {email,password}=req.body;
+    console.log(email)
+    console.log(password)
+    const admin=await Admin.findOne({$or:[{a_email:email},{a_phone:email}]})
     // console.log(admin.a_email)
     if(!admin){
         res.json({success:false,message:"unsuccessfull"})
     }else{
-        const passwordCompare=await bycrypt.compare(apassword,admin.a_password)
+        const passwordCompare=await bycrypt.compare(password,admin.a_password)
         if(!passwordCompare){
             res.json({success:false,message:"Wrong Credential"})
         }else{
@@ -42,7 +43,7 @@ const Login=async(req,res)=>{
             }
         }
         let authToken = await jwttoken.sign(data, process.env.SECRET)
-        res.json({ success: true, authToken ,message:"Login Success"})
+        res.json({ success: true, user:admin,authToken ,message:"Login Success"})
     }
     }
 }

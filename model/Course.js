@@ -4,7 +4,6 @@ const {Schema}=mongoose
 
 
 const Course=new Schema({
-
     cou_name :{
         type: String,
         required:true
@@ -16,7 +15,7 @@ const Course=new Schema({
     },
     u_date :{
         type: Date,
-        required:true
+        required:false
     },
     cou_status: {
         type: String,
