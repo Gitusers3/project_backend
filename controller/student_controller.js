@@ -1,6 +1,5 @@
 const express = require('express')
 const Student = require('../model/Student')
-const { findByIdAndDelete } = require('../model/Admin')
 require('dotenv').config
 
 
@@ -145,6 +144,8 @@ const UpdateStudent = async (req, res) => {
 
     }
 }
+
+
 
 
 module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent }

@@ -11,6 +11,8 @@ app.use('/api/college',require('./routes/college_routes'));
 app.use('/api/course',require('./routes/course_routes'));
 app.use('/api/division',require('./routes/division_routes'));
 app.use('/api/student',require('./routes/student_routes'))
+app.use('/api/staff',require('./routes/staff_routes'))
+
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     app.listen(process.env.PORT, ()=>{
