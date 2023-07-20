@@ -3,8 +3,8 @@ const College=require('../model/college');
 require('dotenv').config
 const AddCollege= async (req,res)=>{
     try{ 
-        const{college,address}=req.body;
-     let c= new College({c_name:college,c_address:address});
+        const{college,address,status}=req.body;
+     let c= new College({c_name:college,c_address:address,c_status:status});
      let savedCollege= await c.save();
      res.json({ success: true, savedCollege })
      console.log("College inserted successfully")
@@ -53,12 +53,13 @@ const DeleteCollege = async ( req , res ) => {
 }
 //updating
 const UpdateCollege = async (req, res) => {
-    const { c_name ,  c_address, c_status } = req.body
+    const { c_name ,  c_address, c_status,u_date } = req.body
     try {
         const newCollege = {};
         if (c_name){ newCollege.c_name = c_name };
         if (c_address){ newCollege.c_address = c_address };
         if (c_status){ newCollege.c_status = c_status };
+        if (u_date){ newCollege.u_date = u_date };
         //newCollege={
         //     name:"name",
         //     phone:"phone",

@@ -21,6 +21,10 @@ const College=new Schema({
     c_status :{
         type: String,
         required: false
+    },
+    u_date:{
+        type:Date,
+        required:false
     }
 
 })

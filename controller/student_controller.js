@@ -24,7 +24,7 @@ const AddStudent = async (req, res) => {
 
 const ViewStudent = async (req, res) => {
     try {
-        const st = await Student.find()
+        const st = await Student.find().populate(["division_id","course_id","college_id"])
         if (!st) {
             res.json({ success: false, message: "No Records Found" })
         } else {
@@ -44,7 +44,7 @@ const ViewStudent = async (req, res) => {
 
 const ViewOne = async (req, res) => {
     try {
-        const s1 = await Student.findById(req.params.id)
+        const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id"])
         if (!s1) {
             res.json({ success: false, message: "Not Found" })
             res.status(400).send("Not Found")

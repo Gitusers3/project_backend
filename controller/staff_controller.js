@@ -49,7 +49,7 @@ const Insert=async(req,res)=>{
 
 const View=async(req,res)=>{
     try{
-        const s1=await Staff.find()
+        const s1=await Staff.find().populate(["role_id"])
         if(!s1){
             res.json({success:false,message:"No records Found "})
             console.log("No records Found")
@@ -95,4 +95,83 @@ const Delete=async(req,res)=>{
 
 }
 
-module.exports={Insert,View,Delete}
+
+const ViewOne=async(req,res)=>{
+    try{
+        const s1=await Staff.findById(req.params.id).populate(["role_id"])
+        if(!s1){
+          
+            res.status(400).send("Records Not Found")
+            console.log("Records Not Found")
+
+
+        }else{
+            res.json(s1)
+            console.log(s1)
+            console.log("result found")
+            console.log(req.method)
+
+        }
+
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send("Some Internal Error Occured")
+    }
+
+}
+
+
+const Update=async(req,res)=>{
+    try{
+        const {profile_img,staff_name,employee_code,employee_type,employee_category,role_id,designation,doj,gname,relationship,gcontact,paddress,taddress,contact_no1,contact_no2,email,dob,blood_group,gender,marital_status,pan_no,adhar_no,updated_at}=req.body
+        const s1=await Staff.findById(req.params.id)
+        if(!s1){
+            console.log("Record Not Found")
+            res.status(400).send("Record Not Found")
+
+        }else{
+            const newStaff={}
+            if(profile_img){newStaff.profile_img=profile_img}
+            if(staff_name){newStaff.staff_name=staff_name}
+            if(employee_code){newStaff.employee_code=employee_code}
+            if(employee_type){newStaff.employee_type=employee_type}
+            if(employee_category){newStaff.employee_category=employee_category}
+            if(role_id){newStaff.role_id=role_id}
+            if(designation){newStaff.designation=designation}
+            if(doj){newStaff.doj=doj}
+            if(gname){newStaff.gname=gname}
+            if(relationship){newStaff.relationship=relationship}
+            if(gcontact){newStaff.gcontact=gcontact}
+            if(paddress){newStaff.paddress=paddress}
+            if(taddress){newStaff.taddress=taddress}
+            if(contact_no1){newStaff.contact_no1=contact_no1}
+            if(contact_no2){newStaff.contact_no2=contact_no2}
+            if(email){newStaff.email=email}
+            if(dob){newStaff.dob=dob}
+            if(blood_group){newStaff.blood_group=blood_group}
+            if(gender){newStaff.gender=gender}
+            if(marital_status){newStaff.marital_status=marital_status}
+            if(pan_no){newStaff.pan_no=pan_no}
+            if(adhar_no){newStaff.adhar_no=adhar_no}
+            if(updated_at){newStaff.updated_at=updated_at}
+
+
+            const updatedStaff=await Staff.findByIdAndUpdate(req.params.id,{$set:newStaff},{new:true})
+
+            res.send(updatedStaff)
+            console.log(updatedStaff)
+            console.log(req.method)
+            console.log("Record Updated Successfully")
+            
+            
+
+        }
+
+    }catch(err){
+        console.error(err.message)
+        res.status(500).send("Some Internal Error Occured")
+    }
+
+}
+
+module.exports={Insert,View,Delete,ViewOne,Update}
