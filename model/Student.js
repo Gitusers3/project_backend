@@ -59,7 +59,7 @@ const Student=new Schema({
         ref:'courses'
     },
     university_reg_no:{
-        type:Number,
+        type:String,
         required:true
     },
     college_id:{
