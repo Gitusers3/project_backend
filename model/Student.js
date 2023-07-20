@@ -13,7 +13,8 @@ const Student=new Schema({
     },
     date_of_admission:{
         type:Date,
-        default:Date.now
+ 
+        required:true
     },
     student_name:{
         type:String,
@@ -84,13 +85,14 @@ const Student=new Schema({
     },
     created_at:{
         type:Date,
-        default:Date.now
+        default:Date.now,
+        required:true
     },
     updated_at:{
         type:Date,
         required:false
     },
-    place:{
+    t_address:{
         type:String,
         required:true
     },
