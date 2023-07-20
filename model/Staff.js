@@ -27,7 +27,7 @@ const Staff = new Schema({
 
     role_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false
+        required: true
     },
     designation: {
         type: String,
@@ -96,7 +96,7 @@ const Staff = new Schema({
         default: Date.now()
 
     },
-    upadetd_at: {
+    updated_at: {
         type: Date,
         required: false
 
