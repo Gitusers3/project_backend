@@ -1,18 +1,63 @@
 const express = require('express')
 const Student = require('../model/Student')
+const Project_Details=require('../model/Project_Details')
+const Student_Academics=require('../model/Student_Academics')
+
 require('dotenv').config
 
 
 const AddStudent = async (req, res) => {
     try {
-        const { division_id, our_reg_no, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission } = req.body
+        // const {student}=req.body
+        const { division_id, our_reg_no, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,course,college,percentage} = req.body
 
-        let c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address, image: image, whatsup: whatsup, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission })
+       
+     
+
+        const project_details=new Project_Details({
+            project_title:project_title,
+            project_client_name:project_client_name,
+            project_client_address:project_client_address,
+            project_client_contact:project_client_contact,
+            project_client_email:project_client_email,
+            project_description:project_description,
+            front_end_pro_lang:front_end_pro_lang,
+            backend_pro_lang:backend_pro_lang,
+            staff_id:staff_id,
+            schedule_from:schedule_from,
+            schedule_to:schedule_to,
+            duration:duration,
+            total_fees:total_fees,
+          
+            pstatus:pstatus
+
+        })
+
+        let savedPrjectDetails = await project_details.save();
+
+
+        let c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address, image: image, whatsup: whatsup, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission,project_id:savedPrjectDetails._id,  pending_fees:fees, })
+
+
+
         let savedStudent = await c.save();
-        res.json({ success: true, savedStudent })
+    
+
+        const student_academics=new Student_Academics({
+            course,
+            college,
+            percentage,
+            student_id:savedStudent._id
+        })
+        const savedAcademics=await student_academics.save()
+
+
+        res.json({ success: true, savedStudent,savedPrjectDetails,savedAcademics })
+       
+        
         console.log("Student details added successfully")
         console.log(req.method)
-        console.log(savedStudent)
+        console.log([savedStudent,savedPrjectDetails,savedAcademics])
 
     } catch (err) {
         console.error(err.message)
@@ -24,7 +69,7 @@ const AddStudent = async (req, res) => {
 
 const ViewStudent = async (req, res) => {
     try {
-        const st = await Student.find().populate(["division_id","course_id","college_id"])
+        const st = await Student.find().populate(['division_id','course_id','college_id'])
         if (!st) {
             res.json({ success: false, message: "No Records Found" })
         } else {
@@ -44,14 +89,18 @@ const ViewStudent = async (req, res) => {
 
 const ViewOne = async (req, res) => {
     try {
-        const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id"])
-        if (!s1) {
-            res.json({ success: false, message: "Not Found" })
+        const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id","project_id"])
+        const a1=await Student_Academics.findById(req.params.id)
+        console.log(a1)
+
+        if (!s1 ) {
+            res.json({ success: false, message: "Student Records Not Found" })
             res.status(400).send("Not Found")
-        } else {
-            res.json(s1)
+        }
+         else {
+            res.json([s1,a1])
             console.log(req.method)
-            console.log(s1)
+            console.log([s1,a1])
         }
 
     } catch (err) {
@@ -59,30 +108,75 @@ const ViewOne = async (req, res) => {
         res.status(500).send("Some Internal Error Occured")
     }
 }
+
+// const DeleteStudent = async (req, res) => {
+//     try {
+//         const id=req.params.id
+//         const s1 = await Student.findById(id)
+//         // const a1= await Student_Academics.findAll(req.params.id)
+//         if (!s1) {
+//             res.json({ success: false, message: "Not Found" })
+
+//         }
+//         // if(a1){
+//         //     const s2 = await Student.findByIdAndDelete(s1)
+//         //     const a2 = await Student_Academics.findByIdAndDelete(a1)
+//         //     res.json([s2,a2 ])
+//         //     console.log(req.method)
+//         //     console.log([s2,a2])
+
+//         // } 
+//         else {
+//             const a2 = await Student_Academics.deleteMany({Student:id})
+//             const s2 = await Student.findByIdAndDelete(s1)
+          
+            
+//             res.json({s2,a2})
+//             console.log(req.method)
+//             console.log({s2,a2})
+//         }
+//     } catch (err) {
+//         console.error(err.message)
+//         res.status(500).send("Some Internal Error Occured")
+//     }
+
+
+// }
+
 
 const DeleteStudent = async (req, res) => {
     try {
-        const s1 = await Student.findById(req.params.id)
+        const id = req.params.id;
+        console.log('Deleting student with ID:', id);
+
+        const s1 = await Student.findById(id);
         if (!s1) {
-            res.json({ success: false, message: "Not Found" })
-
-        } else {
-            const s2 = await Student.findByIdAndDelete(s1)
-            res.json({ success: true, s2 })
-            console.log(req.method)
-            console.log(s2)
+            console.log('Student not found with ID:', id);
+            res.json({ success: false, message: "Not Found" });
+            return;
         }
+
+        console.log('Student found:', s1);
+
+        // Delete associated academic details first (Student_Academics)
+        const a2 = await Student_Academics.deleteMany({ student_id: id });
+        console.log('Academic details deleted count:', a2.deletedCount);
+
+        // Now delete the student (s1)
+        const s2 = await Student.findByIdAndDelete(id);
+        console.log('Student deleted:', s2);
+
+        res.json({ success: true, message: "Student and academic details deleted successfully" });
     } catch (err) {
-        console.error(err.message)
-        res.status(500).send("Some Internal Error Occured")
+        console.error('Error occurred during deletion:', err.message);
+        res.status(500).send("Some Internal Error Occurred");
     }
+};
 
-
-}
 
 const UpdateStudent = async (req, res) => {
     try {
-        const { division_id, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,updated_at } = req.body
+        const { division_id, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,updated_at,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,course,college,percentage } = req.body
 
         const s1 = await Student.findById(req.params.id)
       
@@ -130,10 +224,42 @@ const UpdateStudent = async (req, res) => {
             const UpdateStudent = await Student.findByIdAndUpdate(req.params.id, { $set: newStudent }, { new: true })
 
 
+            const newproject_details={}
+            if(project_title){newproject_details.project_title=project_title}
+            if(project_description){newproject_details.project_description=project_description}
+            if(project_client_name){newproject_details.project_client_name=project_client_name}
+            if(project_client_email){newproject_details.project_client_email=project_client_email}
+            if(project_client_contact){newproject_details.project_client_contact=project_client_contact}
+            if(project_client_address){newproject_details.project_client_address=project_client_address}
+            if(front_end_pro_lang){newproject_details.front_end_pro_lang=front_end_pro_lang}
+            if(backend_pro_lang){newproject_details.backend_pro_lang=backend_pro_lang}
+            if(staff_id){newproject_details.staff_id=staff_id}
+            if(schedule_from){newproject_details.schedule_from=schedule_from}
+            if(schedule_to){newproject_details.schedule_to=schedule_to}
+            if(duration){newproject_details.duration=duration}
+            if(pstatus){newproject_details.pstatus=pstatus}
+            if(total_fees){newproject_details.total_fees=total_fees}
 
-            res.json({ success: true, message: "Updated Successfull", UpdateStudent })
+         
+
+           
+            const UpdatedProject_Details=await Project_Details.findByIdAndUpdate(s1.project_id,{$set:newproject_details},{new:true})
+
+            
+
+            const newAcademics={}
+            if(course){newAcademics.course=course}
+            if(college){newAcademics.college=college}
+            if(percentage){newAcademics.percentage=percentage}
+            const academic=await Student_Academics.findOne({student_id:s1._id})
+            const UpdatedAcademicDetails=await Student_Academics.findByIdAndUpdate(academic,{$set:newAcademics},{new:true})
+
+
+
+
+            res.json({ success: true, message: "Updated Successfull", UpdateStudent,UpdatedProject_Details,UpdatedAcademicDetails })
             console.log(req.method)
-            console.log(UpdateStudent)
+            console.log([UpdateStudent,UpdatedProject_Details,UpdatedAcademicDetails])
 
 
         }

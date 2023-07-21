@@ -59,6 +59,11 @@ const Student=new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'courses'
     },
+    project_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'project_details'
+
+    },
     university_reg_no:{
         type:String,
         required:true
@@ -71,13 +76,18 @@ const Student=new Schema({
         type:Number,
         required:true
     },
+    pending_fees:{
+        type:Number,
+        required:true
+
+    },
     paystatus:{
         type:String,
         required:false
     },
     reg_fees:{
         type:Number,
-        required:true
+        required:false
     },
     status:{
         type:String,
