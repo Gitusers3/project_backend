@@ -45,7 +45,7 @@ const view_one_intership=async(req,res)=>{
     try{
     const intership=await Intership.findById(req.params.id)
     if(!intership){
-        res.status(400).send("Not found")
+            res.status(400).send("Not found")
     }else{
         res.json(intership)
 

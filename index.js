@@ -17,6 +17,7 @@ app.use('/api/intership',require('./routes/intership_routes'));
 app.use('/api/student',require('./routes/student_routes'))
 app.use('/api/staff',require('./routes/staff_routes'))
 app.use('/api/role',require('./routes/role_routes'))
+app.use('/api/fees',require('./routes/fees_routes'))
 
 
 mongoose.connect(process.env.MONGO_URI)
