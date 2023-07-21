@@ -4,7 +4,7 @@ const {Schema}=mongoose
 const Student=new Schema({
     division_id:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'divisions',
+        ref:'division',
         required:true
     },
     our_reg_no:{
