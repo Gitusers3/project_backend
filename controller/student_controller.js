@@ -98,9 +98,9 @@ const ViewOne = async (req, res) => {
             res.status(400).send("Not Found")
         }
          else {
-            res.json([s1,a1])
+            res.json({s1,'academics':[a1]})
             console.log(req.method)
-            console.log([s1,a1])
+            console.log({s1,'academics':[a1]})
         }
 
     } catch (err) {
