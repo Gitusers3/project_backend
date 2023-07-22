@@ -1,4 +1,5 @@
 const Fees=require('../model/Fees')
+const Student=require('../model/Student')
 
 
 
@@ -18,7 +19,14 @@ const add_fees= async (req,res)=>{
             f_date
         })
         let savedFees = await fees.save()
+
+        let s1=await Student.findById(std_id)
+       
+        let pending_fees=s1.pending_fees
+        let newPending_fees=pending_fees-amount
+        const savedStudent=await Student.findByIdAndUpdate(s1,{pending_fees:newPending_fees},{new:true})
         res.json(savedFees)
+        console.log(newPending_fees)
     }
     catch (err) {
         res.json({ success: false, message: "something went wrong" })
