@@ -19,7 +19,7 @@ const Fees =new Schema({
      },
      std_id:{
        type:mongoose.Schema.Types.ObjectId,
-       ref:'colleges',
+       ref:'students',
        require:true
      },
      pay_type:{
