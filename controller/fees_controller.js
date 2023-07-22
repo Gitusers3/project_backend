@@ -72,6 +72,25 @@ const view_one_fees= async (req,res)=>{
     }
     
 }
+const view_student_fees= async (req,res)=>{
+    try{
+     
+    const fees= await Fees.find({std_id:req.params.id})  
+   
+    if(!fees){
+        res.status(400).send("Not found")
+
+
+    }else{
+        res.json(fees)
+    }
+    }
+    catch(err){
+        console.error(err.message)
+        res.status(500).send("Some internal ERROR")
+    }
+    
+}
 
 const Update_fees=async(req,res)=>{
     try{
@@ -112,4 +131,4 @@ const Update_fees=async(req,res)=>{
     }
 
 }
-module.exports = { add_fees,view_fees,view_one_fees,Update_fees}
+module.exports = { add_fees,view_fees,view_one_fees,Update_fees,view_student_fees}
