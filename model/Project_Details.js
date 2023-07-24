@@ -50,10 +50,7 @@ const Project_Details=new Schema({
         type:Date,
         required:false
     },
-    project_title:{
-        type:String,
-        required:false
-    },
+  
     duration:{
         type:String,
         required:false

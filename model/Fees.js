@@ -4,9 +4,9 @@ const {Schema}=mongoose;
 
 const Fees =new Schema({
     rec_num:{
-        type:String,
-        require:true,
-        unique:true
+        type:Number,
+        require:true
+      //   unique:true
     },
     div_id :{
         type:mongoose.Schema.Types.ObjectId,
@@ -31,8 +31,8 @@ const Fees =new Schema({
         require:true,
      },
      remark :{
-        type:String,
-        require:true
+        type:String
+      //   require:true
      },
      status:{
         type:String,
