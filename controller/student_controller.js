@@ -303,8 +303,24 @@ const UpdateStudent = async (req, res) => {
 
     }
 }
-
-
-
-
-module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent }
+const UpdateProfilePicture = async (req, res) => {
+    try {
+        const file  = req.file.filename
+        const s1 = await Student.findById(req.params.id)
+        if (!s1) {
+            res.json({ success: false, message: "Record Not Found" })
+        } else {
+            const newStudent = {}
+            if (file) { newStudent.image = file }
+            const UpdateStudent = await Student.findByIdAndUpdate(req.params.id, { $set: newStudent }, { new: true })
+            res.json({ success: true, message: "Updated Successfull", UpdateStudent})
+            console.log(req.method)
+            console.log(file)
+            console.log(UpdateStudent)
+        }
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send("Some Internal Error Occured")
+    }
+}
+module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent,UpdateProfilePicture }
