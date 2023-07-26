@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
   })
   const upload = multer({ storage: storage })
 
-router.post("/insert",AddStudent)
+router.post("/insert",upload.single('name'),AddStudent)
 router.get("/view",ViewStudent)
 router.get("/view/:id",ViewOne)
 router.delete("/delete/:id",DeleteStudent)
