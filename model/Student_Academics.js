@@ -3,15 +3,15 @@ const { Schema } = mongoose
 
 const Student_Academics = new Schema({
     course: {
-        type: Array,
+        type: String,
         required: false
     },
     college: {
-        type: Array,
+        type: String,
         required: false
     },
     percentage: {
-        type: Array,
+        type: String,
         required: false
     },
     student_id: {

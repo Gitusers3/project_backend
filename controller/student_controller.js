@@ -10,7 +10,18 @@ require('dotenv').config
 const AddStudent = async (req, res) => {
     try {
         // const {student}=req.body
-        const { division_id, our_reg_no, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,course,college,percentage,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours} = req.body
+        const { division_id, our_reg_no, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours} = req.body.student
+
+       
+        const {ucourse,ucollege,upercentage}=req.body.ug
+        const {pcourse,pcollege,ppercentage}=req.body.puc
+        const {scourse,scollege,spercentage}=req.body.sslc
+
+        console.log(req.body.puc)
+        console.log(req.body.sslc)
+
+
+      
 
 
   
@@ -46,13 +57,32 @@ const AddStudent = async (req, res) => {
         let savedStudent = await c.save();
     
 // student Academics
-        const student_academics=new Student_Academics({
-            course,
-            college,
-            percentage,
-            student_id:savedStudent._id
-        })
-        const savedAcademics=await student_academics.save()
+        const ug_student_academics=new Student_Academics({
+          course:ucourse,
+          college:ucollege,
+          percentage:upercentage,
+          student_id:c._id
+        }
+        )
+        const ug_savedAcademics=await ug_student_academics.save()
+
+        const pu_student_academics=new Student_Academics({
+            course:pcourse,
+            college:pcollege,
+            percentage:ppercentage,
+            student_id:c._id
+          }
+          )
+          const puc_savedAcademics=await pu_student_academics.save()
+
+          const sslc_student_academics=new Student_Academics({
+            course:scourse,
+            college:scollege,
+            percentage:spercentage,
+            student_id:c._id
+          }
+          )
+          const sslc_savedAcademics=await sslc_student_academics.save()
 
 // student Internship Details
         const internship_details=new Internship_Details({
@@ -68,12 +98,12 @@ const AddStudent = async (req, res) => {
         const savedInternship_Details=await internship_details.save()
 
 
-        res.json({savedStudent,savedPrjectDetails,savedInternship_Details,'academics':[savedAcademics]})
+        res.json({savedStudent,savedPrjectDetails,savedInternship_Details})
        
         
         console.log("Student details added successfully")
         console.log(req.method)
-        console.log({savedStudent,savedPrjectDetails,savedInternship_Details,'academics':[savedAcademics]})
+        console.log({savedStudent,savedPrjectDetails,savedInternship_Details,ug_savedAcademics,puc_savedAcademics,sslc_savedAcademics})
 
     } catch (err) {
         console.error(err.message)

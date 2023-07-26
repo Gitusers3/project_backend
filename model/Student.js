@@ -5,24 +5,24 @@ const Student=new Schema({
     division_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'division',
-        required:true
+        required:false
     },
     our_reg_no:{
         type:String,
-        required:true
+        required:false
     },
     date_of_admission:{
         type:Date,
  
-        required:true
+        required:false
     },
     student_name:{
         type:String,
-        required:true
+        required:false
     },
     address:{
         type:String,
-        required:true
+        required:false
 
     },
     image:{
@@ -31,11 +31,11 @@ const Student=new Schema({
     },
     whatsup:{
         type:Number,
-        required:true
+        required:false
     },
     contact_no1:{
         type:Number,
-        required:true
+        required:false
     }
     ,
     contact_no2:{
@@ -44,15 +44,15 @@ const Student=new Schema({
     },
     email_id:{
         type:String,
-        required:true
+        required:false
     },
     parent_or_guardian_name:{
         type:String,
-        required:true
+        required:false
     },
     parent_contact:{
         type:Number,
-        required:true
+        required:false
     },
     
     course_id:{
@@ -66,7 +66,7 @@ const Student=new Schema({
     },
     university_reg_no:{
         type:String,
-        required:true
+        required:false
     },
     college_id:{
         type:mongoose.Schema.Types.ObjectId,
@@ -74,11 +74,11 @@ const Student=new Schema({
     },
     fees:{
         type:Number,
-        required:true
+        required:false
     },
     pending_fees:{
         type:Number,
-        required:true
+        required:false
 
     },
     paystatus:{
@@ -91,12 +91,12 @@ const Student=new Schema({
     },
     status:{
         type:String,
-        required:true
+        required:false
     },
     created_at:{
         type:Date,
         default:Date.now,
-        required:true
+        required:false
     },
     updated_at:{
         type:Date,
@@ -104,47 +104,47 @@ const Student=new Schema({
     },
     t_address:{
         type:String,
-        required:true
+        required:false
     },
     p_address:{
         type:String,
-        required:true
+        required:false
     },
     t_pincode:{
         type:Number,
-        required:true
+        required:false
     },
     t_district:{
         type:String,
-        required:true
+        required:false
     },
     t_state:{
         type:String,
-        required:true
+        required:false
     },p_pincode:{
         type:Number,
-        required:true
+        required:false
     },
     p_district:{
         type:String,
-        required:true
+        required:false
     },
     p_state:{
         type:String,
-        required:true
+        required:false
     },
     relationship :{
         type:String,
-        required:true
+        required:false
 
     },
     stream:{
         type:String,
-        required:true
+        required:false
     },
     sem:{
         type:String,
-        required:true
+        required:false
     },
     status_student:{
         type:String,
