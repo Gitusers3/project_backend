@@ -5,7 +5,7 @@ const {Schema}=mongoose;
 const Fees =new Schema({
     rec_num:{
         type:Number,
-        require:true
+        require:false
       //   unique:true
     },
     div_id :{
