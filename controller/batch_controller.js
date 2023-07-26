@@ -19,7 +19,7 @@ const AddBatch= async (req,res)=>{
 
 const ViewBatch = async (req, res)=> {
     try{
-        const batch= await Batch.find();
+        const batch= await Batch.find().populate(['d_id','tech_id']);
         res.json(batch);
         console.log("-----------------------");
         console.log(req.method);
