@@ -13,7 +13,7 @@ const Staff = new Schema({
     employee_code: {
         type: String,
         required: false,
-        
+        unique: false
     },
     employee_type: {
         type: String,
@@ -27,7 +27,8 @@ const Staff = new Schema({
 
     role_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'role'
+        ref: 'role',
+        required: false
     },
     designation: {
         type: String,
@@ -60,7 +61,7 @@ const Staff = new Schema({
     contact_no1: {
         type: Number,
         required: false,
-      
+        unique:false
     },
     contact_no2: {
         type: Number,
@@ -69,7 +70,7 @@ const Staff = new Schema({
     email: {
         type: String,
         required: false,
-    
+        unique: false
     },
     dob: {
         type: String,
