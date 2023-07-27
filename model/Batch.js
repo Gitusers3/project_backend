@@ -12,10 +12,10 @@ const Batch=new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'division'
     },
-    tech_id:{
+    tech_id:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'staff'
-    },
+    }],
    
     c_date:{
         type:Date,
