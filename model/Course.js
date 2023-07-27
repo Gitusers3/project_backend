@@ -19,7 +19,7 @@ const Course=new Schema({
     },
     cou_status: {
         type: String,
-        required:true
+        required:false
     }
     
 })
