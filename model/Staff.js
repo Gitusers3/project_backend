@@ -8,87 +8,87 @@ const Staff = new Schema({
     },
     staff_name: {
         type: String,
-        required: true
+        required: false
     },
     employee_code: {
         type: String,
-        required: true,
-        unique: true
+        required: false,
+        
     },
     employee_type: {
         type: String,
-        required: true
+        required: false
     },
     employee_category: {
         type: String,
-        required: true
+        required: false
     },
 
 
     role_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        ref: 'role'
     },
     designation: {
         type: String,
-        required: true
+        required: false
     },
     doj: {
         type: String,
-        required: true
+        required: false
     },
     gname: {
         type: String,
-        required: true
+        required: false
     },
     relationship: {
         type: String,
-        required: true
+        required: false
     },
     gcontact: {
         type: Number,
-        required: true
+        required: false
     },
     paddress: {
         type: String,
-        required: true
+        required: false
     },
     taddress: {
         type: String,
-        required: true
+        required: false
     },
     contact_no1: {
         type: Number,
-        required: true,
-        unique:true
+        required: false,
+      
     },
     contact_no2: {
         type: Number,
-        required: true
+        required: false
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: false,
+    
     },
     dob: {
         type: String,
-        required: true,
+        required: false,
 
     },
     blood_group: {
         type: String,
-        required: true,
+        required: false,
 
     },
     gender: {
         type: String,
-        required: true,
+        required: false,
 
     },
     marital_status: {
         type: String,
-        required: true,
+        required: false,
 
     },
     created_at: {

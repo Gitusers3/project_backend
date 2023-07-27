@@ -42,6 +42,10 @@ const Project_Details=new Schema({
         required:false,
         ref:'staff'
     },
+    college_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'colleges'
+    },
     schedule_from:{
         type:Date,
         required:false

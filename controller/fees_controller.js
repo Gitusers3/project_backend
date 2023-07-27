@@ -46,7 +46,7 @@ const add_fees= async (req,res)=>{
 
 const view_fees=async (req,res)=>{
     try{
-        const fees=await Fees.find()
+        const fees=await Fees.find().populate(["div_id","std_id"])
         if(fees){
             res.json(fees)
             console.log("---------------------")
@@ -65,7 +65,7 @@ const view_fees=async (req,res)=>{
 const view_one_fees= async (req,res)=>{
     try{
      
-    const fees= await Fees.findById(req.params.id)  
+    const fees= await Fees.findById(req.params.id).populate(["div_id","std_id"]) 
    
     if(!fees){
         res.status(400).send("Not found")
