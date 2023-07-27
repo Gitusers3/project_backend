@@ -27,6 +27,7 @@ const Staff = new Schema({
 
     role_id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'role',
         required: false
     },
     designation: {

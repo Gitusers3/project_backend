@@ -14,12 +14,14 @@ const AddStudent = async (req, res) => {
         const { division_id, our_reg_no, student_name, address, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours} = req.body.student
 
        
-        const {ucourse,ucollege,upercentage}=req.body.ug
-        const {pcourse,pcollege,ppercentage}=req.body.puc
+        const {ucourse,ucollege,upercenatge}=req.body.ug
+        const {pcourse,pcollege,ppercenatge}=req.body.puc
         const {scourse,scollege,spercentage}=req.body.sslc
 
-        console.log(req.body.puc)
-        console.log(req.body.sslc)
+        console.log("p",req.body.puc)
+        console.log("s",req.body.sslc)
+        console.log("u",req.body.ug)
+        console.log("s",req.body.student)
 
 
       
@@ -43,6 +45,7 @@ const AddStudent = async (req, res) => {
             schedule_to:schedule_to,
             duration:duration,
             total_fees:total_fees,
+            college_id:college_id,
           
             pstatus:pstatus
 
@@ -61,7 +64,7 @@ const AddStudent = async (req, res) => {
         const ug_student_academics=new Student_Academics({
           course:ucourse,
           college:ucollege,
-          percentage:upercentage,
+          percentage:upercenatge,
           student_id:c._id
         }
         )
@@ -70,7 +73,7 @@ const AddStudent = async (req, res) => {
         const pu_student_academics=new Student_Academics({
             course:pcourse,
             college:pcollege,
-            percentage:ppercentage,
+            percentage:ppercenatge,
             student_id:c._id
           }
           )

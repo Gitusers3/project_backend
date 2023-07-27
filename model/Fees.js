@@ -10,7 +10,7 @@ const Fees =new Schema({
     },
     div_id :{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'divisions',
+        ref:'division',
         require:true
      },
      amount :{
