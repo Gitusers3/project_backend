@@ -68,10 +68,10 @@ const Student=new Schema({
         type:String,
         required:false
     },
-    college_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'colleges'
-    },
+        college_id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'colleges'
+        },
     fees:{
         type:Number,
         required:false
