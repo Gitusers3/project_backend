@@ -4,13 +4,15 @@ const Project_Details=require('../model/Project_Details')
 const Student_Academics=require('../model/Student_Academics')
 const Internship_Details=require('../model/Internship_Details')
 
+
 require('dotenv').config
 
 
 const AddStudent = async (req, res) => {
     try {
+        console.log("data",req.body.student.total_fees)
         // const {student}=req.body
-        const image  = req.file.filename
+        // const image  = req.file.filename
         const { division_id, our_reg_no, student_name, address, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours} = req.body.student
 
        
@@ -54,8 +56,10 @@ const AddStudent = async (req, res) => {
         let savedPrjectDetails = await project_details.save();
 
 // student Details
-        let c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address, image: image, whatsup: whatsup, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission,project_id:savedPrjectDetails._id,  pending_fees:fees })
-        console.log(image)
+        let c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address,
+            //  image: image, 
+             whatsup: whatsup, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: total_fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission,project_id:savedPrjectDetails._id,  pending_fees:total_fees })
+        // console.log(image)
 
 
         let savedStudent = await c.save();
@@ -140,7 +144,7 @@ const ViewStudent = async (req, res) => {
 const ViewOne = async (req, res) => {
     try {
         const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id","project_id"])
-        const a1=await Student_Academics.findOne({student_id:req.params.id})
+        const a1=await Student_Academics.find({student_id:req.params.id})
         const p1=await Internship_Details.findOne({student_id:req.params.id})
        
 
@@ -149,7 +153,7 @@ const ViewOne = async (req, res) => {
             res.status(400).send("Not Found")
         }
          else {
-            res.json({s1,'academics':[a1],p1})
+            res.json({s1,'academics':a1,p1})
             console.log(req.method)
             console.log(s1,a1,p1)
         }
@@ -357,4 +361,23 @@ const UpdateProfilePicture = async (req, res) => {
         res.status(500).send("Some Internal Error Occured")
     }
 }
-module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent,UpdateProfilePicture }
+
+const View_Project=async(req,res)=>{
+    try{
+        const project=await Project_Details.find()
+        if(project){
+            res.json(project)
+
+        }else{
+            console.log("No records Found")
+        }
+
+    }catch(err){
+        console.error(err)
+    }
+    
+
+
+
+}
+module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent,UpdateProfilePicture,View_Project }

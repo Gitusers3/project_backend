@@ -8,7 +8,7 @@ const add_fees= async (req,res)=>{
     try {
         console.log(req.body.amount)
         const{rec_num,div_id,amount,std_id,pay_type,fees_type,rec_towards,status,f_date,remark}=req.body
-        console.log("student",fees_type)
+        console.log("student",std_id)
         let fees=await new Fees({
             rec_num,
             div_id,
@@ -29,7 +29,7 @@ const add_fees= async (req,res)=>{
        
        
         let pending_fees=s1.pending_fees
-        console.log(pending_fees)
+        console.log("pending",pending_fees)
         let newPending_fees=pending_fees-amount
         const savedStudent=await Student.findByIdAndUpdate(std_id,{pending_fees:newPending_fees},{new:true})
         console.log("pending fees updated",newPending_fees)
@@ -140,4 +140,31 @@ const Update_fees=async(req,res)=>{
     }
 
 }
-module.exports = { add_fees,view_fees,view_one_fees,Update_fees,view_student_fees}
+
+
+const Delete=async(req,res)=>{
+    try{
+        const fid=req.params.id;
+        const fees=await Fees.findById(fid)
+        if(fees){
+            const fees_data=await Fees.findByIdAndDelete(fid)
+            res.json({success:true,message:"deleted Successfully"})
+            console.log("Deleted Successfully")
+            
+
+        }else{
+            res.json({success:false,message:"Not found"})
+            console.log("Not found")
+
+
+        }
+
+
+    }catch(err){
+        console.error(err.message)
+        res.json(err)
+
+    }
+
+}
+module.exports = { add_fees,view_fees,view_one_fees,Update_fees,view_student_fees,Delete}
