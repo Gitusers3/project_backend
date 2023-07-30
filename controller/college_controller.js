@@ -1,5 +1,5 @@
 const express = require('express');
-const College=require('../model/college');
+const College=require('../model/College');
 require('dotenv').config
 const AddCollege= async (req,res)=>{
     try{ 
