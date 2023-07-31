@@ -3,8 +3,8 @@ const Batch=require('../model/Batch');
 require('dotenv').config
 const AddBatch= async (req,res)=>{
     try{ 
-        const{batch,d_id,tech_id,status}=req.body;
-     let b= new Batch({b_name:batch,d_id:d_id,tech_id:tech_id,status:status});
+        const{batch,d_id,tech_id,status,project_id,c_id}=req.body;
+     let b= new Batch({b_name:batch,d_id:d_id,tech_id:tech_id,college_id:c_id,status:status,project_id});
      let savedBatch= await b.save();
      res.json({ success: true, savedBatch })
      console.log("batch inserted successfully")
@@ -20,7 +20,7 @@ const AddBatch= async (req,res)=>{
 
 const ViewBatch = async (req, res)=> {
     try{
-        const batch= await Batch.find().populate([{path:"tech_id"},'d_id']);
+        const batch= await Batch.find().populate([{path:"tech_id"},{path:"project_id"},'d_id','college_id']);
         res.json(batch);
         console.log("-----------------------");
         console.log(req.method);
