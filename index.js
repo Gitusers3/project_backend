@@ -19,7 +19,9 @@ app.use('/api/staff',require('./routes/staff_routes'))
 app.use('/api/role',require('./routes/role_routes'))
 app.use('/api/fees',require('./routes/fees_routes'))
 app.use('/api/batch',require('./routes/batch_routes'))
-
+app.use('/api/cstimetable',require('./routes/cs_timetable_routes'))
+app.use('/api/cltimetable',require('./routes/cl_timetable_routes'))
+app.use('/api/techtimetable',require('./routes/tech_timetable_routes'))
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
