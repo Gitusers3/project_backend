@@ -12,9 +12,17 @@ const Batch=new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'division'
     },
+    college_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'colleges'
+    },
     tech_id:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'staff'
+    }],
+    project_id:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'project_details'
     }],
    
     c_date:{
