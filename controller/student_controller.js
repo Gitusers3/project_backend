@@ -123,7 +123,7 @@ const AddStudent = async (req, res) => {
 
 const ViewStudent = async (req, res) => {
     try {
-        const st = await Student.find().populate(['division_id','course_id','college_id'])
+        const st = await Student.find().populate(['division_id','course_id','college_id','project_id'])
         if (!st) {
             res.json({ success: false, message: "No Records Found" })
         } else {
