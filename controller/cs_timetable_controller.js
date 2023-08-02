@@ -3,6 +3,7 @@ const CsTimetable=require('../model/CsTime_table');
 require('dotenv').config
 const AddCsTimetable= async (req,res)=>{
     try{ 
+        console.log("reqs",req.body)
         const{dayofweek,first_session,second_session,status}=req.body;
      let c= new CsTimetable({dayofweek:dayofweek,first_session:first_session,second_session:second_session,status:status});
      let savedcsTimetable= await c.save();
@@ -20,7 +21,7 @@ const AddCsTimetable= async (req,res)=>{
 const ViewCsTimetable = async (req, res)=> {
     try{
         const csTimetable= await CsTimetable.find();
-        res.json(CsTimetable);
+        res.json(csTimetable);
         console.log("-----------------------");
         console.log(req.method);
         console.log(csTimetable);
