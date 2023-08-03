@@ -14,6 +14,11 @@ const ClTimetable=new Schema({
         type:String,
         required:true
     },
+    third_session:{
+        type:String,
+        required:true
+    },
+ 
  
     status:{
         type:String,

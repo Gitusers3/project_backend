@@ -3,8 +3,8 @@ const ClTimetable=require('../model/ClTime_table');
 require('dotenv').config
 const AddClTimetable= async (req,res)=>{
     try{ 
-        const{dayofweek,first_session,second_session,status}=req.body;
-     let c= new ClTimetable({dayofweek:dayofweek,first_session:first_session,second_session:second_session,status:status});
+        const{dayofweek,first_session,second_session,third_session,status}=req.body;
+     let c= new ClTimetable({dayofweek:dayofweek,first_session:first_session,second_session:second_session,third_session:third_session,status:status});
      let savedClTimetable= await c.save();
      res.json({ success: true, savedClTimetable })
      console.log("ClTimetable inserted successfully")
