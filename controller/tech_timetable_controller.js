@@ -4,7 +4,7 @@ require('dotenv').config
 const AddTechTimetable= async (req,res)=>{
     try{ 
         const{tech_id,dayofweek,first_session,second_session,third_session,four_session,status}=req.body;
-        console.log(first_session,9999999999)
+        console.log(req.body,9999999999)
      let c= new TechTimetable({tech_id:tech_id,dayofweek:dayofweek,first_session:first_session,second_session:second_session,third_session:third_session,four_session:four_session,status:status});
      let savedTechTimetable= await c.save();
      res.json({ success: true, savedTechTimetable })

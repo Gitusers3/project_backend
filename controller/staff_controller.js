@@ -3,7 +3,7 @@ const Staff = require('../model/Staff')
 
 
 const Insert = async (req, res) => {
-    console.log(req.body)
+    console.log("data",req.body)
     try {
         const { staff_name, employee_code, doj, relationship, gcontact, paddress, taddress, contact_no1, contact_no2, email, dob, blood_group, gender, marital_status, pan_no, adhar_no ,employee_type,employee_category,gname,role_id,designation} = req.body
     //    const  {} = req.body.
