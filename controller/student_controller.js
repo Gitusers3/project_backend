@@ -3,6 +3,8 @@ const Student = require('../model/Student')
 const Project_Details=require('../model/Project_Details')
 const Student_Academics=require('../model/Student_Academics')
 const Internship_Details=require('../model/Internship_Details')
+const colleges=require('../model/College')
+const courses=require('../model/Course')
 
 
 require('dotenv').config
@@ -234,7 +236,7 @@ const DeleteStudent = async (req, res) => {
 
 const UpdateStudent = async (req, res) => {
     try {
-        const { division_id, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, sts,updated_at,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,course,college,percentage,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours } = req.body
+        const {cou_name,c_name, division_id, student_name, address, image, whatsup, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, sts,updated_at,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,course,college,percentage,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours } = req.body
 
         const s1 = await Student.findById(req.params.id)
       
@@ -303,7 +305,14 @@ const UpdateStudent = async (req, res) => {
            
             const UpdatedProject_Details=await Project_Details.findByIdAndUpdate(s1.project_id,{$set:newproject_details},{new:true})
 
-            
+
+            const newcurrentCollege={}
+            if(c_name){newcurrentCollege.c_name=c_name}
+            const UpdatedCurrentCollege=await colleges.findByIdAndUpdate(s1.college_id,{$set:newcurrentCollege},{new:true})
+            const newcurrentCourse={}
+            if(cou_name){newcurrentCourse.cou_name=cou_name}
+            const UpdatedCurrentCourse=await courses.findByIdAndUpdate(s1.course_id,{$set:newcurrentCourse},{new:true})
+
 
             const newAcademics={}
             if(course){newAcademics.course=course}
@@ -331,7 +340,7 @@ const UpdateStudent = async (req, res) => {
 
             res.json({ success: true, message: "Updated Successfull", UpdateStudent,UpdatedProject_Details,'academic':UpdatedAcademicDetails,UpdatedInternship_Details })
             console.log(req.method)
-            console.log([UpdateStudent,UpdatedProject_Details,UpdatedAcademicDetails,UpdatedInternship_Details])
+            console.log([UpdateStudent,UpdatedProject_Details,UpdatedAcademicDetails,UpdatedInternship_Details,UpdatedCurrentCollege,UpdatedCurrentCourse])
 
 
         }
