@@ -94,6 +94,7 @@ const ViewOneBatch = async ( req, res ) =>{
         let batch = await Batch.findById(req.params.id);
         if(!batch){
             res.status(404).send(" Not Found !")
+            return
         }
         res.json(batch);
     }
@@ -103,5 +104,23 @@ const ViewOneBatch = async ( req, res ) =>{
 }
 }
 
+const ViewBatchTechie=async(req,res)=>{
+    try{
+    const id=req.params.id
+    const batch=await Batch.find({tech_id:id}).populate([{path:"tech_id"},{path:"project_id"},'d_id','college_id'])
+    if(batch){
+        res.json(batch)
+        console.log(batch)
 
-module.exports={AddBatch, ViewBatch,DeleteBatch,UpdateBatch,ViewOneBatch}
+    }else{
+        console.log("Not found")
+    }
+    }catch(err){
+        console.log(err)
+    }
+
+
+}
+
+
+module.exports={AddBatch, ViewBatch,DeleteBatch,UpdateBatch,ViewOneBatch,ViewBatchTechie}
