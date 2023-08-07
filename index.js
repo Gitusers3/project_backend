@@ -11,6 +11,7 @@ app.use('/api/college',require('./routes/college_routes'));
 app.use('/api/course',require('./routes/course_routes'));
 app.use('/api/division',require('./routes/division_routes'));
 app.use('/uploads',express.static('./uploads'));
+app.use('/uploads',express.static('./uploads/staffs'));
 
 app.use('/api/intership',require('./routes/intership_routes'));
 
