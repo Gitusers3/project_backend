@@ -16,10 +16,10 @@ const AddStudent = async (req, res) => {
         // const {student}=req.body
         const image  = req.image
         
-        const { division_id, our_reg_no, student_name, address, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours,project_id} = req.body
-        const {ucourse,ucollege,upercenatge}=req.body.ug
-        const {pcourse,pcollege,ppercenatge}=req.body.puc
-        const {scourse,scollege,spercentage}=req.body.sslc
+        const { division_id, our_reg_no, student_name, address, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours,project_id} = req.body;
+        const {ucourse,ucollege,upercenatge}=req.body
+        const {pcourse,pcollege,ppercenatge}=req.body
+        const {scourse,scollege,spercentage}=req.body
         console.log("p",req.body.puc)
         console.log("s",req.body.sslc)
         console.log("u",req.body.ug)
@@ -53,12 +53,12 @@ if(!project_id){
 
 // student Details
         var c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address,
-            //  image: image, 
+             image: image, 
              whatsup: contact_no1, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: total_fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission,project_id:savedPrjectDetails._id,  pending_fees:total_fees })
              var savedStudent = await c.save();
         }else{
             var c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address,
-                //  image: image, 
+                 image: image, 
                  whatsup: contact_no1, contact_no1: contact_no1, contact_no2: contact_no2, email_id: email_id, parent_or_guardian_name: parent_or_guardian_name, parent_contact: parent_contact, course_id: course_id, university_reg_no: university_reg_no, college_id: college_id, fees: total_fees, paystatus: paystatus, reg_status: reg_status, reg_fees: reg_fees, status: status, t_address: t_address, p_address: p_address, t_pincode: t_pincode, t_state: t_state, t_district: t_district, p_pincode: p_pincode, p_state: p_state, p_district: p_district, relationship: relationship, stream: stream, sem: sem, status_student: status_student, all_status: all_status,date_of_admission:date_of_admission,project_id,pending_fees:total_fees })
                  var savedStudent = await c.save();
 

@@ -10,12 +10,13 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now()
+      console.log(file)
       cb(null, uniqueSuffix  + '-' +file.originalname )
     }
   })
   const upload = multer({ storage: storage })
 
-router.post("/insert",upload.single('name'),AddStudent)
+router.post("/insert",upload.single('image'),AddStudent)
 router.get("/view",FetchAdmin,ViewStudent)
 router.get("/view/:id",ViewOne)
 router.get("/view_project",FetchAdmin,View_Project)

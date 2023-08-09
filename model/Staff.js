@@ -10,6 +10,10 @@ const Staff = new Schema({
         type: String,
         required: false
     },
+    profile:{
+        type:String,
+        required:false
+    },
     employee_code: {
         type: String,
         required: false,
