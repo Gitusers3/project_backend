@@ -1,11 +1,11 @@
 const express=require('express')
 const router=express.Router()
 const {Insert,View,Delete,ViewOne,Update}=require('../controller/staff_controller')
-
+const FetchAdmin=require("../middlewear/admin")
 
 
 router.post("/insert",Insert)
-router.get("/view",View)
+router.get("/view",FetchAdmin,View)
 router.get("/viewone/:id",ViewOne)
 router.delete("/delete/:id",Delete)
 router.put("/update/:id",Update)

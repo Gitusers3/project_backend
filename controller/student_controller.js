@@ -14,9 +14,9 @@ const AddStudent = async (req, res) => {
     try {
         console.log("data",req.body)
         // const {student}=req.body
-        const image  = req.file.filename
+        const image  = req.image
         
-        const { division_id, our_reg_no, student_name, address, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours,project_id} = req.body.student
+        const { division_id, our_reg_no, student_name, address, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours,project_id} = req.body
         const {ucourse,ucollege,upercenatge}=req.body.ug
         const {pcourse,pcollege,ppercenatge}=req.body.puc
         const {scourse,scollege,spercentage}=req.body.sslc
@@ -24,6 +24,7 @@ const AddStudent = async (req, res) => {
         console.log("s",req.body.sslc)
         console.log("u",req.body.ug)
         console.log("s",req.body.student)
+        console,log("division_id",division_id)
 
 // project Details
 if(!project_id){
