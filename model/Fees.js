@@ -4,7 +4,7 @@ const {Schema}=mongoose;
 
 const Fees =new Schema({
     rec_num:{
-        type:Number,
+        type:String,
         require:false
       //   unique:true
     },

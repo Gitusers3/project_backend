@@ -37,19 +37,27 @@ const Login=async(req,res)=>{
         if(!passwordCompare){
             res.json({success:false,message:"Wrong Credential"})
         }else{
-        const data={
-            admin:{
-                id:Admin.id
-            }
-        }
+        const data=admin._id.toString();
         let authToken = await jwttoken.sign(data, process.env.SECRET)
         res.json({ success: true, user:admin,authToken ,message:"Login Success"})
     }
     }
 }
 
+const View = async ( req, res ) =>{
+    try{
+        let admin = await Admin.findById(req.admin);
+        if(!admin){
+            return res.status(404).send(" Not Found !")
+        } else {
+        res.json(admin);
+        }
+    }
+    catch(err){
+        console.error(err.message);
+        res.status(500).send(" Internal error Occurred ! ");
+}
+}
 
-
-
-module.exports={Login, Register}
+module.exports={Login, Register, View}
 
