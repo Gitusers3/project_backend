@@ -12,9 +12,9 @@ require('dotenv').config
 
 const AddStudent = async (req, res) => {
     try {
-        console.log("data",req.body)
+        // console.log("data",req.body)
         // const {student}=req.body
-        const image  = req.image
+        const image  = req.file.filename
         
         const { division_id, our_reg_no, student_name, address, contact_no1, contact_no2, email_id, parent_or_guardian_name, parent_contact, course_id, university_reg_no, college_id, fees, paystatus, reg_status, reg_fees, status, t_address, p_address, t_pincode, t_state, t_district, p_pincode, p_state, p_district, relationship, stream, sem, status_student, all_status,date_of_admission,project_title,project_client_name,project_client_address,project_client_contact,project_client_email,project_description,front_end_pro_lang,backend_pro_lang,staff_id,schedule_from,schedule_to,duration,total_fees,pstatus,internship_id,start_date,end_date,start_time,end_time,no_of_days,no_of_hours,project_id} = req.body;
         const {ucourse,ucollege,upercenatge}=req.body
@@ -23,9 +23,8 @@ const AddStudent = async (req, res) => {
         console.log("p",req.body.puc)
         console.log("s",req.body.sslc)
         console.log("u",req.body.ug)
-        console.log("s",req.body.student)
-        console,log("division_id",division_id)
-
+        console.log("s",req.body)
+        console.log("division_id",division_id)
 // project Details
 if(!project_id){
         const project_details=new Project_Details({
@@ -45,12 +44,8 @@ if(!project_id){
             college_id:college_id,
             image:image,
             pstatus:pstatus
-
         })
-
         let savedPrjectDetails = await project_details.save();
-    
-
 // student Details
         var c = new Student({ division_id: division_id, our_reg_no: our_reg_no, student_name: student_name, address: address,
              image: image, 
@@ -63,11 +58,6 @@ if(!project_id){
                  var savedStudent = await c.save();
 
         }
-        // console.log(image)
-
-
-      
-    
 // student Academics
         const ug_student_academics=new Student_Academics({
           course:ucourse,
@@ -95,7 +85,6 @@ if(!project_id){
           }
           )
           const sslc_savedAcademics=await sslc_student_academics.save()
-
 // student Internship Details
         const internship_details=new Internship_Details({
             internship_id:internship_id,
@@ -108,15 +97,10 @@ if(!project_id){
             no_of_hours:no_of_hours
         })
         const savedInternship_Details=await internship_details.save()
-
-
-        res.json({savedStudent,savedInternship_Details})
-       
-        
         console.log("Student details added successfully")
         console.log(req.method)
         console.log({savedStudent,savedInternship_Details,ug_savedAcademics,puc_savedAcademics,sslc_savedAcademics})
-
+        res.json({savedStudent,savedInternship_Details})
     } catch (err) {
         console.error(err.message)
         res.status(500).send("Some internal ERROR occured !")
@@ -170,39 +154,6 @@ const ViewOne = async (req, res) => {
     }
 }
 
-// const DeleteStudent = async (req, res) => {
-//     try {
-//         const id=req.params.id
-//         const s1 = await Student.findById(id)
-//         // const a1= await Student_Academics.findAll(req.params.id)
-//         if (!s1) {
-//             res.json({ success: false, message: "Not Found" })
-
-//         }
-//         // if(a1){
-//         //     const s2 = await Student.findByIdAndDelete(s1)
-//         //     const a2 = await Student_Academics.findByIdAndDelete(a1)
-//         //     res.json([s2,a2 ])
-//         //     console.log(req.method)
-//         //     console.log([s2,a2])
-
-//         // } 
-//         else {
-//             const a2 = await Student_Academics.deleteMany({Student:id})
-//             const s2 = await Student.findByIdAndDelete(s1)
-          
-            
-//             res.json({s2,a2})
-//             console.log(req.method)
-//             console.log({s2,a2})
-//         }
-//     } catch (err) {
-//         console.error(err.message)
-//         res.status(500).send("Some Internal Error Occured")
-//     }
-
-
-// }
 
 
 const DeleteStudent = async (req, res) => {
