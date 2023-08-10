@@ -24,7 +24,7 @@ const AddStudent = async (req, res) => {
         console.log("s",req.body.sslc)
         console.log("u",req.body.ug)
         console.log("s",req.body.student)
-        console,log("division_id",division_id)
+        console.log("division_id",division_id)
 
 // project Details
 if(!project_id){
