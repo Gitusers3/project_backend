@@ -129,11 +129,13 @@ const ViewStudent = async (req, res) => {
     try {
         const st = await Student.find().populate(['division_id','course_id','college_id','project_id'])
         if (!st) {
-            res.json({ success: false, message: "No Records Found" })
+            return res.json({ success: false, message: "No Records Found" })
+            
         } else {
-            res.json({ success: true, st })
+            
             console.log(req.method)
             console.log(st)
+            return res.json({ success: true, st })
         }
 
     } catch (err) {

@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 
 router.post("/insert",upload.single('image'),AddStudent)
 router.get("/view",FetchAdmin,ViewStudent)
-router.get("/view/:id",ViewOne)
+router.get("/viewone/:id",ViewOne)
 router.get("/view_project",FetchAdmin,View_Project)
 router.delete("/delete/:id",DeleteStudent)
 router.put("/update/:id",UpdateStudent)

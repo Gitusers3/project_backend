@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router()
 const multer=require('multer')
 const {Insert,View,Delete,ViewOne,Update}=require('../controller/staff_controller')
-const FetchAdmin=require('../middleware/admin')
+const FetchAdmin=require('../middlewear/admin')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/staffs/')
