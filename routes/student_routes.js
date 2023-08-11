@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const multer=require('multer')
-const {AddStudent,ViewStudent,ViewOne,DeleteStudent,UpdateStudent,UpdateProfilePicture,View_Project}=require("../controller/student_controller")
+const {AddStudent,ViewStudent,ViewOne,DeleteStudent,UpdateStudent,UpdateProfilePicture,View_Project,AddToBatch,RemoveFromBatch}=require("../controller/student_controller")
 const FetchAdmin=require('../middlewear/admin')
 
 const storage = multer.diskStorage({
@@ -18,6 +18,8 @@ const storage = multer.diskStorage({
 
 router.post("/insert",upload.single('image'),AddStudent)
 router.get("/view",FetchAdmin,ViewStudent)
+router.put("/addToBatch/:id",FetchAdmin,AddToBatch)
+router.put("/removeFromBatch/:id",FetchAdmin,RemoveFromBatch)
 router.get("/viewone/:id",ViewOne)
 router.get("/view_project",FetchAdmin,View_Project)
 router.delete("/delete/:id",DeleteStudent)

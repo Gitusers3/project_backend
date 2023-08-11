@@ -7,6 +7,11 @@ const Student=new Schema({
         ref:'division',
         required:false
     },
+    batch_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'batch',
+        required:false
+    },
     our_reg_no:{
         type:String,
         required:false

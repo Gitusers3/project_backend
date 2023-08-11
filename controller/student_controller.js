@@ -111,7 +111,7 @@ if(!project_id){
 
 const ViewStudent = async (req, res) => {
     try {
-        const st = await Student.find().populate(['division_id','course_id','college_id','project_id'])
+        const st = await Student.find().populate(['division_id','course_id','college_id','project_id','batch_id'])
         if (!st) {
             return res.json({ success: false, message: "No Records Found" })
             
@@ -133,7 +133,7 @@ const ViewStudent = async (req, res) => {
 
 const ViewOne = async (req, res) => {
     try {
-        const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id","project_id"])
+        const s1 = await Student.findById(req.params.id).populate(["division_id","course_id","college_id","project_id","batch_id"])
         const a1=await Student_Academics.find({student_id:req.params.id})
         const p1=await Internship_Details.findOne({student_id:req.params.id})
        
@@ -339,9 +339,45 @@ const View_Project=async(req,res)=>{
     }catch(err){
         console.error(err)
     }
-    
-
-
-
 }
-module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent,UpdateProfilePicture,View_Project }
+const AddToBatch=async(req,res)=>{
+            try {
+                const {batchId} = req.body
+                const s1 = await Student.findById(req.params.id);
+                if(!batchId){
+                    res.json({ success: false, message: "Batch Id does not found!" })
+                }else 
+                if (!s1) {
+                    res.json({ success: false, message: "Record Not Found" })
+                } else {
+                    const newStudent = {}
+                    if (batchId) { newStudent.batch_id = batchId }
+                    const UpdateStudent = await Student.findByIdAndUpdate(req.params.id, { $set: newStudent }, { new: true })
+                    res.json({ success: true, message: "Updated Successfully", UpdateStudent })
+                    console.log(req.method)
+                    console.log(UpdateStudent)
+                }
+            }
+        catch(err){
+        console.error(err.message)
+        res.status(500).send("Some Internal Error Occured")
+        }
+    }
+    const RemoveFromBatch = async (req, res) => {
+        try {
+        const s1 = await Student.findById(req.params.id);
+        if (!s1) {
+            return res.json({ success: false, message: "Record Not Found" });
+        }
+        const updatedStudent = await Student.findByIdAndUpdate(
+            req.params.id,
+            { $unset: { batch_id: "" } }, // Remove the batch_id field
+            { new: true }
+        );
+            res.json({ success: true, message: "Batch ID removed", updatedStudent });
+        } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Some Internal Error Occurred");
+        }
+    };
+module.exports = { AddStudent, ViewStudent, ViewOne, DeleteStudent,UpdateStudent,UpdateProfilePicture,View_Project,AddToBatch,RemoveFromBatch }
