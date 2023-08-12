@@ -55,16 +55,13 @@ const View = async (req, res) => {
     try {
         const s1 = await Staff.find().populate(["role_id"])
         if (!s1) {
-            res.json({ success: false, message: "No records Found " })
             console.log("No records Found")
-
-
+            res.json({ success: false, message: "No records Found " })
         } else {
             res.json(s1)
             console.log("Inserted Successfully")
             console.log(req.method)
             console.log(s1)
-
         }
 
     } catch (err) {
