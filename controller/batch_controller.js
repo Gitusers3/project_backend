@@ -91,7 +91,7 @@ const UpdateBatch = async (req, res) => {
 //single-view
 const ViewOneBatch = async ( req, res ) =>{
     try{
-        let batch = await Batch.findById(req.params.id);
+        let batch = await Batch.findById(req.params.id).populate([{path:"project_id"},'d_id','college_id']);
         if(!batch){
             res.status(404).send(" Not Found !")
             return
